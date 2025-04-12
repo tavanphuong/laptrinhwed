@@ -46,9 +46,9 @@
                                     @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                     @endif
-                                </div>
+                                </div>  
 
-                                <!-- <div class="form-group mb-3">
+                                < <div class="form-group mb-3">
                                     <input type="text" style="border: solid 1px; width: 250px; margin-top:15px;" placeholder="Like" id="like" class="form-control"
                                            name="like" required>
                                     @if ($errors->has('like'))
