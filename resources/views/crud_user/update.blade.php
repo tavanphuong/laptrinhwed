@@ -20,6 +20,8 @@
                                         <p style="margin-top:20px">User name</p>
                                         <p style="margin-top:35px">Email</p>
                                         <p style="margin-top:28px">Nhập lại mặt khẩu</p>
+                                        <!-- <p style="margin-top:28px">Like</p>
+                                        <p style="margin-top:28px">Github</p> -->
                                     </div>
                                 <div class="col-md-8">
                                 <div class="form-group mb-3">
@@ -44,6 +46,39 @@
                                     @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                     @endif
+                                </div>
+
+                                <!-- <div class="form-group mb-3">
+                                    <input type="text" style="border: solid 1px; width: 250px; margin-top:15px;" placeholder="Like" id="like" class="form-control"
+                                           name="like" required>
+                                    @if ($errors->has('like'))
+                                        <span class="text-danger">{{ $errors->first('like') }}</span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <input type="text" style="border: solid 1px; width: 250px; margin-top:15px;" placeholder="Github" id="github" class="form-control"
+                                           name="github" required>
+                                    @if ($errors->has('github'))
+                                        <span class="text-danger">{{ $errors->first('github') }}</span>
+                                    @endif
+                                </div> -->
+
+                                  <!-- Hinh anh -->
+                                <!-- <div class="row mb-3">
+                                    <label for="avatar" style="padding-right: 58px;" class="col-md-4 col-form-label text-md-end">{{ __('Avatar') }}</label>
+  
+                                    <div class="col-md-6">
+                                        <input id="avatar"  type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar" value="{{ old('avatar') }}" required autocomplete="avatar">
+                                        <img src="{{ asset('avatar/'.$user->avatar)  }}" width="70px" height="70px" alt="avatar">
+                                        @error('avatar')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div> -->
+
+                                   
                                 </div>
 
                                 <div class="row">

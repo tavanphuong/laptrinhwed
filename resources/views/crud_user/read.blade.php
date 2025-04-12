@@ -46,11 +46,15 @@
         <p>Id</p>
         <p> Username</p>
         <p> Email</p>
+       
         </div>
         <div class="col-md-8">
         <p>{{$user->id}}</p>
         <p>{{$user->name}}</p>
         <p>{{$user->email}}</p>
+        <!-- <p>{{ $user -> like }}</p>
+        <p>{{ $user ->github }}</p>
+        <p><img src="{{ asset('avatar/'.$user->avatar)  }}" width="70px" height="70px" alt="avatar"></p> -->
         </div>
       </div>
 

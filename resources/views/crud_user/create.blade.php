@@ -65,7 +65,7 @@
                                 </div>
 
                                  <!-- Mật khẩu -->
-                                 <div class="form-group mb-2">
+                                 <!-- <div class="form-group mb-2">
                                     <div class="row text-center">
                                         <div class="col-md-4" style="">Like</div>
                                         <div class="col-md-8" style="text-align: left;">
@@ -76,10 +76,10 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                  <!-- Mật khẩu -->
-                                 <div class="form-group mb-2">
+                                 <!-- <div class="form-group mb-2">
                                     <div class="row text-center">
                                         <div class="col-md-4" style="">github</div>
                                         <div class="col-md-8" style="text-align: left;">
@@ -90,7 +90,22 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+<!-- 
+                                  Hinh anh
+                                  <div class="row mb-3">
+                                    <label for="avatar"  style=" padding-right: 50px;"class="col-md-4 col-form-label text-md-end">{{ __('Avatar') }}</label>
+  
+                                    <div class="col-md-6">
+                                        <input id="avatar" type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar" value="{{ old('avatar') }}" required autocomplete="avatar">
+  
+                                        @error('avatar')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div> -->
+
                                 <!-- Button -->
                                 <div class="row">
                                     <div class="col-md-8" style="text-align: right; margin-top: 6px;">

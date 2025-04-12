@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+
 /**
  * CRUD User controller
  */
@@ -33,7 +34,7 @@ class CrudUserController extends Controller
             'password' => 'required',
         ]);
 
-       $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             return redirect()->intended('list')
@@ -57,12 +58,12 @@ class CrudUserController extends Controller
     public function postUser(Request $request)
     {
         //kiem tra du lieu  dau vao
+        $fileName = $this->AvatarUpload($request);
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'like' => 'required',
-            'github' => 'required',
+           
 
         ]);
         //Lay tat ca co so du lieu gan vao mang data
@@ -72,9 +73,7 @@ class CrudUserController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'like' => $data['like'],
-            'github' => $data['github'],
-
+          
         ]);
 
         return redirect("login");
@@ -83,7 +82,8 @@ class CrudUserController extends Controller
     /**
      * View user detail page
      */
-    public function readUser(Request $request) {
+    public function readUser(Request $request)
+    {
         $user_id = $request->get('id');
         $user = User::find($user_id);
 
@@ -93,7 +93,8 @@ class CrudUserController extends Controller
     /**
      * Delete user by id
      */
-    public function deleteUser(Request $request) {
+    public function deleteUser(Request $request)
+    {
         $user_id = $request->get('id');
 
         $isDelete = false;
@@ -103,7 +104,7 @@ class CrudUserController extends Controller
         //Check existing favorite
         $favorities = User::find($user_id)->favorities;
 
-        if (empty ($post) && $favorities->isEmpty()) {
+        if (empty($post) && $favorities->isEmpty()) {
             $isDelete = true;
         }
 
@@ -113,7 +114,6 @@ class CrudUserController extends Controller
         } else {
             return redirect("list")->withSuccess('Delete not ok');
         }
-
     }
 
     /**
@@ -128,29 +128,48 @@ class CrudUserController extends Controller
         return view('crud_user.update', ['user' => $user]);
     }
 
+    //
+    public function AvatarUpload(Request $request, $oldAvatar = null)
+    {
+        if ($request->hasFile('avatar')) {
+            // Xóa ảnh cũ nếu có
+            if ($oldAvatar) {
+                $oldPath = public_path('avatar/' . $oldAvatar);
+                if (File::exists($oldPath)) {
+                    File::delete($oldPath);
+                }
+            }
+
+            $file = $request->file('avatar');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('avatar'), $filename);
+            return $filename;
+        }
+
+        return $oldAvatar; // Trường hợp không upload mới, giữ lại ảnh cũ
+    }
+
     /**
      * Submit form update user
      */
     public function postUpdateUser(Request $request)
     {
         $input = $request->all();
-
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,id,'.$input['id'],
+            'email' => 'required|email|unique:users,id,' . $input['id'],
             'password' => 'required|min:6',
-            'like' => 'required',
-            'github' => 'required',
+            
         ]);
 
 
 
-       $user = User::find($input['id']);
-       $user->name = $input['name'];
-       $user->email = $input['email'];
-       $user->password = $input['password'];
-       $user->like = $input['like'];
-       $user->github = $input['github'];
+        $user = User::find($input['id']);
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        $user->password = $input['password'];
+       
+
         $user->update();
 
         return redirect("list")->withSuccess('You have signed-in');
@@ -161,10 +180,10 @@ class CrudUserController extends Controller
      */
     public function listUser()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             // $users = User::all();//Lay tat ca du lieu trong ban user
             $users = User::paginate(10);
-            return view('crud_user.list', ['users' => $users]);//->with('i',(request()->input('page',1)-1)*2);
+            return view('crud_user.list', ['users' => $users]); //->with('i',(request()->input('page',1)-1)*2);
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');
@@ -173,7 +192,8 @@ class CrudUserController extends Controller
     /**
      * Sign out
      */
-    public function signOut() {
+    public function signOut()
+    {
         Session::flush();
         Auth::logout();
 
