@@ -62,23 +62,7 @@
                                     @if ($errors->has('github'))
                                         <span class="text-danger">{{ $errors->first('github') }}</span>
                                     @endif
-                                </div> -->
-
-                                  <!-- Hinh anh -->
-                                <!-- <div class="row mb-3">
-                                    <label for="avatar" style="padding-right: 58px;" class="col-md-4 col-form-label text-md-end">{{ __('Avatar') }}</label>
-  
-                                    <div class="col-md-6">
-                                        <input id="avatar"  type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar" value="{{ old('avatar') }}" required autocomplete="avatar">
-                                        <img src="{{ asset('avatar/'.$user->avatar)  }}" width="70px" height="70px" alt="avatar">
-                                        @error('avatar')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div> -->
-
-                                   
+                                </div> 
                                 </div>
 
                                 <div class="row">
