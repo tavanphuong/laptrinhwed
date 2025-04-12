@@ -64,8 +64,7 @@
                                     </div>
                                 </div>
 
-                                 <!-- Mật khẩu -->
-                                 <!-- <div class="form-group mb-2">
+                                  <div class="form-group mb-2">
                                     <div class="row text-center">
                                         <div class="col-md-4" style="">Like</div>
                                         <div class="col-md-8" style="text-align: left;">
@@ -76,10 +75,8 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div> -->
-
-                                 <!-- Mật khẩu -->
-                                 <!-- <div class="form-group mb-2">
+                                </div>
+                                  <div class="form-group mb-2">
                                     <div class="row text-center">
                                         <div class="col-md-4" style="">github</div>
                                         <div class="col-md-8" style="text-align: left;">
@@ -90,7 +87,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
 <!-- 
                                   Hinh anh
                                   <div class="row mb-3">

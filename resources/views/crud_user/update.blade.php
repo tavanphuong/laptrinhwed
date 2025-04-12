@@ -20,8 +20,8 @@
                                         <p style="margin-top:20px">User name</p>
                                         <p style="margin-top:35px">Email</p>
                                         <p style="margin-top:28px">Nhập lại mặt khẩu</p>
-                                        <!-- <p style="margin-top:28px">Like</p>
-                                        <p style="margin-top:28px">Github</p> -->
+                                        <p style="margin-top:28px">Like</p>
+                                        <p style="margin-top:28px">Github</p> 
                                     </div>
                                 <div class="col-md-8">
                                 <div class="form-group mb-3">
@@ -48,7 +48,7 @@
                                     @endif
                                 </div>  
 
-                                < <div class="form-group mb-3">
+                                 <div class="form-group mb-3">
                                     <input type="text" style="border: solid 1px; width: 250px; margin-top:15px;" placeholder="Like" id="like" class="form-control"
                                            name="like" required>
                                     @if ($errors->has('like'))
