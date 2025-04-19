@@ -17,9 +17,10 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('123456'),
-            'phone' => '213456789',
-            'avatar' => 'Capture.PNG',
-            'mssv' => 'test'
+            // 'like' => 'abc',
+            // 'github' => 'admin@github.com',
+
+
         ]);
 
         for ($i = 1; $i < 100; $i++) {
@@ -28,9 +29,8 @@ class UserSeeder extends Seeder
                 'name' => $user_name,
                 'email' => $user_name . '@admin.com',
                 'password' => Hash::make('123456'),
-                'phone' => '213456789',
-                'avatar' => 'Capture.PNG',
-                'mssv' => $user_name
+                // 'like' => 'abc',
+                // 'github' => 'admin@github.com',
             ]);
         }
 

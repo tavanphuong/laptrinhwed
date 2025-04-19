@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Posts;
 use Hash;
 use Session;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 
 /**
  * CRUD User controller
  */
 class CrudUserController extends Controller
 {
-
+    const MAX_RECORDS = 10;
     /**
      * Login page
      */
@@ -57,26 +55,19 @@ class CrudUserController extends Controller
      */
     public function postUser(Request $request)
     {
-        //kiem tra du lieu  dau vao
-        $fileName = $this->AvatarUpload($request);
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-           
-
         ]);
-        //Lay tat ca co so du lieu gan vao mang data
-        $data = $request->all();
 
+        $data = $request->all();
         $check = User::create([
             'name' => $data['name'],
+//            'phone' => $data['phone'],
+//            'address' => $data['address'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'like' => $data['like'],
-            'github' => $data['github'],
-
-          
+            'password' => Hash::make($data['password'])
         ]);
 
         return redirect("login");
@@ -85,38 +76,21 @@ class CrudUserController extends Controller
     /**
      * View user detail page
      */
-    public function readUser(Request $request)
-    {
+    public function readUser(Request $request) {
         $user_id = $request->get('id');
         $user = User::find($user_id);
 
-        return view('crud_user.read', ['user' => $user]);
+        return view('crud_user.read', ['messi' => $user]);
     }
 
     /**
      * Delete user by id
      */
-    public function deleteUser(Request $request)
-    {
+    public function deleteUser(Request $request) {
         $user_id = $request->get('id');
+        $user = User::destroy($user_id);
 
-        $isDelete = false;
-        //Check existing post
-        $post = Posts::where('user_id', '=', $user_id)->first();
-
-        //Check existing favorite
-        $favorities = User::find($user_id)->favorities;
-
-        if (empty($post) && $favorities->isEmpty()) {
-            $isDelete = true;
-        }
-
-        if ($isDelete) {
-            $user = User::destroy($user_id);
-            return redirect("list")->withSuccess('Delete successful');
-        } else {
-            return redirect("list")->withSuccess('Delete not ok');
-        }
+        return redirect("list")->withSuccess('You have signed-in');
     }
 
     /**
@@ -124,32 +98,10 @@ class CrudUserController extends Controller
      */
     public function updateUser(Request $request)
     {
-        //tim user theo id
         $user_id = $request->get('id');
         $user = User::find($user_id);
 
         return view('crud_user.update', ['user' => $user]);
-    }
-
-    //
-    public function AvatarUpload(Request $request, $oldAvatar = null)
-    {
-        if ($request->hasFile('avatar')) {
-            // Xóa ảnh cũ nếu có
-            if ($oldAvatar) {
-                $oldPath = public_path('avatar/' . $oldAvatar);
-                if (File::exists($oldPath)) {
-                    File::delete($oldPath);
-                }
-            }
-
-            $file = $request->file('avatar');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('avatar'), $filename);
-            return $filename;
-        }
-
-        return $oldAvatar; // Trường hợp không upload mới, giữ lại ảnh cũ
     }
 
     /**
@@ -158,22 +110,18 @@ class CrudUserController extends Controller
     public function postUpdateUser(Request $request)
     {
         $input = $request->all();
+
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,id,' . $input['id'],
+            'email' => 'required|email|unique:users,id,'.$input['id'],
             'password' => 'required|min:6',
-            
         ]);
 
-
-
-        $user = User::find($input['id']);
-        $user->name = $input['name'];
-        $user->email = $input['email'];
-        $user->password = $input['password'];
-       
-
-        $user->update();
+       $user = User::find($input['id']);
+       $user->name = $input['name'];
+       $user->email = $input['email'];
+       $user->password = $input['password'];
+       $user->save();
 
         return redirect("list")->withSuccess('You have signed-in');
     }
@@ -183,10 +131,11 @@ class CrudUserController extends Controller
      */
     public function listUser()
     {
-        if (Auth::check()) {
-            // $users = User::all();//Lay tat ca du lieu trong ban user
-            $users = User::paginate(10);
-            return view('crud_user.list', ['users' => $users]); //->with('i',(request()->input('page',1)-1)*2);
+
+        if(Auth::check()){
+            $users = User::paginate(self::MAX_RECORDS);
+
+            return view('crud_user.list', ['users' => $users]);
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');
@@ -195,8 +144,7 @@ class CrudUserController extends Controller
     /**
      * Sign out
      */
-    public function signOut()
-    {
+    public function signOut() {
         Session::flush();
         Auth::logout();
 
