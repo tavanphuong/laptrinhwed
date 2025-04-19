@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
 
@@ -31,11 +31,10 @@ Route::get('update', [CrudUserController::class, 'updateUser'])->name('user.upda
 Route::post('update', [CrudUserController::class, 'postUpdateUser'])->name('user.postUpdateUser');
 
 Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
+//Roles
+Route::get('role', [RoleController::class, 'role'])->name('user.role');
 
 Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
-
-
-Route::get('danh-sach-so-thich', [FavoriteController::class, 'list'])->name('favorite.list');
 
 Route::get('/', function () {
     return view('welcome');
